@@ -1,0 +1,42 @@
+$TextAndBorder: rgb(125, 125, 125);
+$StepBackground: rgb(56, 56, 56);
+$Active: red;
+
+.container {
+    width: 50px;
+    aspect-ratio: 1/1;
+    border-radius: 6px;
+    background-color: $StepBackground;
+    box-shadow: 3px 4px 12px -3px rgb(0 0 0 / 75%);
+}
+
+.gridStep {
+    border: 3px solid $TextAndBorder;
+}
+
+.stepNumberContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+}
+
+.stepNumber {
+    text-decoration: underline;
+    text-align: center;
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 6px;
+    color: $TextAndBorder;
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.active {
+    color: $Active;
+    font-weight: bold;
+
+    &.gridStep {
+        border: 3px solid $Active;
+    }
+}

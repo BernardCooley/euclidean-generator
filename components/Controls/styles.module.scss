@@ -1,0 +1,30 @@
+.controls {
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin: 12px 0px;
+    flex-direction: column;
+    box-shadow: 3px 4px 12px -3px rgb(0 0 0 / 75%);
+    position: relative;
+}
+
+.controlsTitle {
+    position: absolute;
+    top: -9px;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+}
+
+.icons {
+    position: relative;
+    top: 6px;
+
+    :hover {
+        cursor: pointer;
+        background-color: lightgray;
+    }
+}

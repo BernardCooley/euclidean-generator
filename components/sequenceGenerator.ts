@@ -4,7 +4,7 @@ interface Props {
 }
 
 export const SequenceGenerator = ({ trigs, steps }: Props): number[] => {
-    let groups = [];
+    let groups: any[] = [];
     for (let i = 0; i < steps; i++) groups.push([Number(i < trigs)]);
 
     let l: number;

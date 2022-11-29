@@ -52,9 +52,9 @@ export const SequenceContextProvider = ({
 
     const getSeqLengths = (sequenceIndex: number) => {
         return {
-            steps: sequences[sequenceIndex].sequence.filter((step) => step)
+            steps: sequences[sequenceIndex].sequence.length,
+            trigs: sequences[sequenceIndex].sequence.filter((step) => step)
                 .length,
-            trigs: sequences[sequenceIndex].sequence.length,
         };
     };
 

@@ -1,22 +1,13 @@
-import { useEffect, useState } from "react";
 import { AddSequenceForm } from "../components/AddSequence/AddSequence";
 import { useSequenceContext } from "../components/Contexts/SequenceContext";
 import Step from "../components/Step/Step";
 import styles from "../styles/Home.module.scss";
 import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
 import Controls from "../components/Controls/Conteols";
 
 export default function Home() {
     const { sequences, formOpen, openCloseForm, addRemoveStep, addRemoveTrig } =
         useSequenceContext();
-
-    useEffect(() => {
-        console.log(
-            "🚀 ~ file: index.tsx ~ line 19 ~ Home ~ sequences",
-            sequences
-        );
-    }, [sequences]);
 
     return (
         <div className={styles.container}>

@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 .sequencerContainer {
     border-radius: 12px;
     padding: 56px 24px;
@@ -8,32 +10,31 @@
     margin-bottom: 48px;
     align-items: flex-start;
     position: relative;
-    box-shadow: 3px 4px 12px -3px rgb(0 0 0 / 75%);
+    box-shadow: $BoxShadow;
     background-image: linear-gradient(135deg, #28313b 0%, #485461 100%);
-    // height: 400px;
     transition: all 0.3s ease-in-out;
 }
 
 .minimiseIcon {
     position: absolute;
-    top: 12px;
+    bottom: 12px;
     right: 12px;
-    color: white;
+    color: $Text;
     font-size: 24px;
     cursor: pointer;
 
-    :hover {
-        background-color: #000000;
+    &:hover {
+        background-color: $BorderDark;
         border-radius: 8px;
     }
 }
 
 .minimised {
-    // height: 30px;
     overflow: hidden;
 }
 
 .title {
+    display: flex;
     margin-top: 0px;
     position: absolute;
     left: 50%;
@@ -42,8 +43,9 @@
     font-size: 34px;
     width: 30%;
     text-align: center;
-    color: white;
+    color: $Text;
     transition: all 0.3s ease-in-out;
+    justify-content: center;
 
     &.minimised {
         font-size: 26px;
@@ -72,4 +74,10 @@
 
 .hidden {
     display: none;
+}
+
+.closeContainer {
+    position: absolute;
+    top: 12px;
+    right: 12px;
 }

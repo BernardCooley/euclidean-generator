@@ -1,14 +1,16 @@
+@import "../../styles/variables";
+
 .container {
     width: 50vw;
-    height: 50vh;
+    height: 300px;
     position: absolute;
-    background-image: linear-gradient(135deg, #28313b 0%, #485461 100%);
+    background-image: $BackgroundImage;
     translate: 50% 50%;
-    border: 1px solid black;
     border-radius: 12px;
     padding: 24px;
     z-index: 2;
     min-height: 250px;
+    box-shadow: $BoxShadow;
 }
 
 .form {
@@ -22,52 +24,64 @@
 .fields {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
+    gap: 12px;
+    flex-direction: column;
+}
+
+.stepsInputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 12px;
 }
 
 .label {
     font-size: 18px;
     font-weight: bold;
+    color: $Text;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .input {
+    box-shadow: $BoxShadow;
+    margin-top: 8px;
     height: 48px;
-    border: 1px solid black;
+    border: 1px solid $BorderDark;
     border-radius: 12px;
     padding: 12px;
-    width: max-content;
+    width: 100%;
+    background-color: $Text;
+    font-size: 18px;
 }
 
 .generateButton {
     width: 100%;
     height: 48px;
-    border: 1px solid black;
+    border: 1px solid $BorderDark;
     border-radius: 12px;
     background-color: transparent;
     color: #000;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
+    box-shadow: $BoxShadow;
 
     &:disabled {
-        background-color: #ccc;
+        background-color: $Text;
         cursor: not-allowed;
     }
 
     &:hover:not(:disabled) {
-        background-color: #000;
-        color: #fff;
+        background-color: $BorderDark;
+        color: $Text;
     }
 }
 
-.closeIcon {
+.closeContainer {
     position: absolute;
     top: 12px;
     right: 12px;
-    cursor: pointer;
-
-    &:hover {
-        color: #000;
-    }
 }

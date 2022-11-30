@@ -1,28 +1,22 @@
 import { AddSequenceForm } from "../components/AddSequence/AddSequence";
 import { useSequenceContext } from "../components/Contexts/SequenceContext";
 import styles from "../styles/Home.module.scss";
-import AddIcon from "@mui/icons-material/Add";
 import Sequence from "../components/Sequence/Sequence";
-import { useEffect } from "react";
+import AddButton from "../components/AddButton/AddButton";
 
 const Home = () => {
-    const { sequences, formOpen, openCloseForm } = useSequenceContext();
-
-    useEffect(() => {
-        // console.log(
-        //     "🚀 ~ file: index.tsx ~ line 10 ~ Home ~ sequences",
-        //     sequences
-        // );
-    }, [sequences]);
+    const { sequences, formOpen } = useSequenceContext();
 
     return (
         <div className={styles.container}>
-            <div
-                className={styles.addIcon}
-                onClick={() => openCloseForm("open")}
+            <h1
+                className={`${styles.appTitle} ${
+                    sequences.length > 0 ? styles.sequences : ""
+                }`}
             >
-                <AddIcon />
-            </div>
+                Euclidean sequence generator
+            </h1>
+            <AddButton />
             {formOpen && <AddSequenceForm />}
 
             {sequences?.map((seq, i) => (

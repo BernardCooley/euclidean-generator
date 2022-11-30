@@ -1,13 +1,11 @@
-$TextAndBorder: rgb(125, 125, 125);
-$StepBackground: rgb(56, 56, 56);
-$Active: red;
+@import "../../styles/variables";
 
 .container {
     width: 50px;
     aspect-ratio: 1/1;
     border-radius: 6px;
     background-color: $StepBackground;
-    box-shadow: 3px 4px 12px -3px rgb(0 0 0 / 75%);
+    box-shadow: $BoxShadow;
 
     &.minimised {
         aspect-ratio: unset;
@@ -29,9 +27,10 @@ $Active: red;
     justify-content: center;
     align-items: center;
     padding: 6px;
+    height: 100%;
 }
 
-.stepNumber {
+.stepText {
     text-decoration: underline;
     text-align: center;
     width: 100%;
@@ -40,12 +39,22 @@ $Active: red;
     color: $TextAndBorder;
     font-size: 24px;
     line-height: 28px;
+    height: 100%;
 }
 
 .active {
     color: $Active;
 
     &.gridStep {
+        border: 3px solid $Active;
+    }
+}
+
+.isButton:hover {
+    color: $Active;
+
+    .stepText {
+        color: $Active;
         border: 3px solid $Active;
     }
 }

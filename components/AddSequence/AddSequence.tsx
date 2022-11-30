@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSequenceContext } from "../Contexts/SequenceContext";
 import styles from "./styles.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
+import CloseButton from "../CloseButton/CloseButton";
 
 interface Props {}
 
@@ -23,11 +24,8 @@ export const AddSequenceForm = ({}: Props) => {
 
     return (
         <div className={styles.container}>
-            <div
-                className={styles.closeIcon}
-                onClick={() => openCloseForm("close")}
-            >
-                <CloseIcon />
+            <div className={styles.closeContainer}>
+                <CloseButton />
             </div>
             <form className={styles.form} onSubmit={generateSequence}>
                 <div className={styles.fields}>
@@ -40,28 +38,30 @@ export const AddSequenceForm = ({}: Props) => {
                             value={title}
                         />
                     </label>
-                    <label className={styles.label}>
-                        On steps
-                        <input
-                            className={styles.input}
-                            onChange={(event) =>
-                                setTrigs(Number(event.target.value))
-                            }
-                            type="number"
-                            value={trigs}
-                        />
-                    </label>
-                    <label className={styles.label}>
-                        Total steps
-                        <input
-                            className={styles.input}
-                            onChange={(event) =>
-                                setSteps(Number(event.target.value))
-                            }
-                            type="number"
-                            value={steps}
-                        />
-                    </label>
+                    <div className={styles.stepsInputs}>
+                        <label className={styles.label}>
+                            On steps
+                            <input
+                                className={styles.input}
+                                onChange={(event) =>
+                                    setTrigs(Number(event.target.value))
+                                }
+                                type="number"
+                                value={trigs}
+                            />
+                        </label>
+                        <label className={styles.label}>
+                            Total steps
+                            <input
+                                className={styles.input}
+                                onChange={(event) =>
+                                    setSteps(Number(event.target.value))
+                                }
+                                type="number"
+                                value={steps}
+                            />
+                        </label>
+                    </div>
                 </div>
                 <button
                     className={styles.generateButton}

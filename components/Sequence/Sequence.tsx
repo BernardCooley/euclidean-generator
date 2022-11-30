@@ -1,12 +1,16 @@
 import React from "react";
 import { Sequence } from "../../types";
 import { useSequenceContext } from "../Contexts/SequenceContext";
-import Controls from "../Controls/Conteols";
+import Controls from "../Controls/Controls";
 import Step from "../Step/Step";
 import styles from "./styles.module.scss";
 import FastForwardIcon from "@mui/icons-material/FastForward";
 import FastRewindIcon from "@mui/icons-material/FastRewind";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
+import OpenInFullIcon from "@mui/icons-material/OpenInFull";
+import CloseIcon from "@mui/icons-material/Close";
+import CloseButton from "../CloseButton/CloseButton";
+import ConfirmDialog from "../ConfirmDialog/ConfirmDialog";
 
 interface Props {
     sequence: Sequence;
@@ -14,9 +18,16 @@ interface Props {
 }
 
 const Sequence = ({ sequence, seqIndex }: Props) => {
-    const { addRemoveStep, addRemoveTrig, half, double, offset } =
-        useSequenceContext();
+    const {
+        addRemoveStep,
+        addRemoveTrig,
+        half,
+        double,
+        offset,
+        removeSequence,
+    } = useSequenceContext();
     const [minimised, setMinimised] = React.useState(false);
+    const [dialogOpen, setDialogOpen] = React.useState(false);
 
     const getStepNumber = (step: number): number => {
         if (step > 15 && step < 32) {
@@ -40,17 +51,38 @@ const Sequence = ({ sequence, seqIndex }: Props) => {
                 minimised ? styles.minimised : ""
             }`}
         >
-            <CloseFullscreenIcon
-                fontSize="large"
-                className={styles.minimiseIcon}
-                onClick={() => setMinimised(!minimised)}
-            />
+            {dialogOpen && (
+                <ConfirmDialog
+                    text={`Do you want to remove ${sequence.title}`}
+                    cancelOnClick={() => setDialogOpen(false)}
+                    confirmOnClick={() => removeSequence(seqIndex)}
+                />
+            )}
+            <div
+                className={styles.closeContainer}
+                onClick={() => setDialogOpen(true)}
+            >
+                <CloseButton />
+            </div>
+            {minimised ? (
+                <OpenInFullIcon
+                    fontSize="large"
+                    className={styles.minimiseIcon}
+                    onClick={() => setMinimised(!minimised)}
+                />
+            ) : (
+                <CloseFullscreenIcon
+                    fontSize="large"
+                    className={styles.minimiseIcon}
+                    onClick={() => setMinimised(!minimised)}
+                />
+            )}
             <h2
                 className={`${styles.title} ${
                     minimised ? styles.minimised : ""
                 }`}
             >
-                {sequence.title}
+                <div>{sequence.title}</div>
             </h2>
             <div
                 className={`${styles.details} ${
@@ -88,7 +120,7 @@ const Sequence = ({ sequence, seqIndex }: Props) => {
                     <Step
                         key={index}
                         active={step}
-                        stepNumber={getStepNumber(index) + 1}
+                        stepText={getStepNumber(index) + 1}
                         isGridStep={index % 4 === 0}
                         minimised={minimised}
                     />

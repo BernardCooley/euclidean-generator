@@ -1,0 +1,11 @@
+@import "../../styles/variables";
+
+.closeIcon {
+    cursor: pointer;
+    color: $Text;
+    border-radius: 8px;
+
+    &:hover {
+        background-color: $BorderDark;
+    }
+}

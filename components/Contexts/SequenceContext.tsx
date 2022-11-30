@@ -17,6 +17,7 @@ interface SequenceContextProps {
     half: (sequenceIndex: number, type: "trigs" | "steps") => void;
     double: (sequenceIndex: number, type: "trigs" | "steps") => void;
     offset: (sequenceIndex: number, offset: number) => void;
+    removeSequence: (sequenceIndex: number) => void;
 }
 
 export const SequenceContext = createContext<SequenceContextProps>({
@@ -29,6 +30,7 @@ export const SequenceContext = createContext<SequenceContextProps>({
     half: () => {},
     double: () => {},
     offset: () => {},
+    removeSequence: () => {},
 });
 
 export const useSequenceContext = () => useContext(SequenceContext);
@@ -158,6 +160,12 @@ export const SequenceContextProvider = ({
         });
     };
 
+    const removeSequence = (sequenceIndex: number) => {
+        const newSequences = [...sequences];
+        newSequences.splice(sequenceIndex, 1);
+        setSequences(newSequences);
+    };
+
     return (
         <SequenceContext.Provider
             value={{
@@ -170,6 +178,7 @@ export const SequenceContextProvider = ({
                 half,
                 double,
                 offset,
+                removeSequence,
             }}
         >
             {children}

@@ -3,26 +3,40 @@ import styles from "./styles.module.scss";
 
 interface Props {
     active: boolean;
-    stepNumber: number;
+    stepText: number | string;
     isGridStep?: boolean;
     minimised?: boolean;
+    additionalStyles?: {
+        [key: string]: string;
+    };
+    isButton?: boolean;
 }
 
-const Step = ({ active, stepNumber, isGridStep, minimised }: Props) => {
+const Step = ({
+    active,
+    stepText,
+    isGridStep,
+    minimised,
+    additionalStyles,
+    isButton,
+}: Props) => {
     return (
         <div
             className={`${styles.container} ${
                 minimised ? styles.minimised : ""
-            } ${minimised && active ? styles.active : ""}`}
+            } ${minimised && active ? styles.active : ""} ${
+                isButton ? styles.isButton : ""
+            }`}
+            style={additionalStyles}
         >
             {!minimised && (
                 <div className={styles.stepNumberContainer}>
                     <div
-                        className={`${styles.stepNumber} ${
+                        className={`${styles.stepText} ${
                             active ? styles.active : ""
                         } ${isGridStep ? styles.gridStep : ""}`}
                     >
-                        {stepNumber}
+                        {stepText}
                     </div>
                 </div>
             )}

@@ -18,6 +18,22 @@ const Sequence = ({ sequence, seqIndex }: Props) => {
         useSequenceContext();
     const [minimised, setMinimised] = React.useState(false);
 
+    const getStepNumber = (step: number): number => {
+        if (step > 15 && step < 32) {
+            return step - 16;
+        }
+        if (step > 31 && step < 48) {
+            return step - 32;
+        }
+        if (step > 47 && step < 64) {
+            return step - 48;
+        }
+        if (step > 63 && step < 80) {
+            return step - 64;
+        }
+        return step;
+    };
+
     return (
         <div
             className={`${styles.sequencerContainer} ${
@@ -72,7 +88,7 @@ const Sequence = ({ sequence, seqIndex }: Props) => {
                     <Step
                         key={index}
                         active={step}
-                        stepNumber={index + 1}
+                        stepNumber={getStepNumber(index) + 1}
                         isGridStep={index % 4 === 0}
                         minimised={minimised}
                     />

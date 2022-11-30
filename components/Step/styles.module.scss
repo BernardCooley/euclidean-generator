@@ -7,6 +7,18 @@
     background-color: $StepBackground;
     box-shadow: $BoxShadow;
 
+    @media screen and (min-width: $mobile-wide-breakpoint) {
+        width: 40px;
+    }
+
+    @media screen and (min-width: $x-large-screen-breakpoint) {
+        width: 60px;
+    }
+
+    @media screen and (min-width: $xx-large-screen-breakpoint) {
+        width: 70px;
+    }
+
     &.minimised {
         aspect-ratio: unset;
         height: 20px;
@@ -40,6 +52,11 @@
     font-size: 24px;
     line-height: 28px;
     height: 100%;
+
+    @media screen and (min-width: $x-large-screen-breakpoint) {
+        font-size: 36px;
+        line-height: 56px;
+    }
 }
 
 .active {

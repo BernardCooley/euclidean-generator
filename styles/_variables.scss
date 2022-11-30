@@ -5,3 +5,16 @@ $StepBackground: rgb(56, 56, 56);
 $Active: rgb(250, 41, 41);
 $BackgroundImage: linear-gradient(135deg, #28313b 0%, #485461 100%);
 $BorderDark: rgb(27, 27, 27);
+
+/* Breakpoints */
+$mobile-breakpoint: 321px;
+$mobile-landscape-breakpoint: 480px;
+$mobile-wide-breakpoint: 600px;
+$medium-screen-breakpoint: 1023px;
+$large-screen-breakpoint: 1440px;
+
+$tablet-breakpoint: 767px;
+$small-laptop-breakpoint: 991px;
+$x-large-screen-breakpoint: 1440px;
+$xx-large-screen-breakpoint: 1600px;
+$xxx-large-screen-breakpoint: 1920px;

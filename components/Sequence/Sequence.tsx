@@ -6,6 +6,7 @@ import Step from "../Step/Step";
 import styles from "./styles.module.scss";
 import FastForwardIcon from "@mui/icons-material/FastForward";
 import FastRewindIcon from "@mui/icons-material/FastRewind";
+import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 
 interface Props {
     sequence: Sequence;
@@ -13,12 +14,33 @@ interface Props {
 }
 
 const Sequence = ({ sequence, seqIndex }: Props) => {
-    const { addRemoveStep, addRemoveTrig, half, double } = useSequenceContext();
+    const { addRemoveStep, addRemoveTrig, half, double, offset } =
+        useSequenceContext();
+    const [minimised, setMinimised] = React.useState(false);
 
     return (
-        <div className={styles.sequencerContainer}>
-            <h2 className={styles.title}>{sequence.title}</h2>
-            <div className={styles.details}>
+        <div
+            className={`${styles.sequencerContainer} ${
+                minimised ? styles.minimised : ""
+            }`}
+        >
+            <CloseFullscreenIcon
+                fontSize="large"
+                className={styles.minimiseIcon}
+                onClick={() => setMinimised(!minimised)}
+            />
+            <h2
+                className={`${styles.title} ${
+                    minimised ? styles.minimised : ""
+                }`}
+            >
+                {sequence.title}
+            </h2>
+            <div
+                className={`${styles.details} ${
+                    minimised ? styles.hidden : ""
+                }`}
+            >
                 <Controls
                     currentNumber={sequence.sequence.length}
                     title="Steps"
@@ -35,8 +57,14 @@ const Sequence = ({ sequence, seqIndex }: Props) => {
                     halfOnClick={() => half(seqIndex, "trigs")}
                     doubleOnClick={() => double(seqIndex, "trigs")}
                 >
-                    <FastRewindIcon fontSize="large" />
-                    <FastForwardIcon fontSize="large" />
+                    <FastRewindIcon
+                        fontSize="large"
+                        onClick={() => offset(seqIndex, -1)}
+                    />
+                    <FastForwardIcon
+                        fontSize="large"
+                        onClick={() => offset(seqIndex, 1)}
+                    />
                 </Controls>
             </div>
             <div className={styles.sequencer}>
@@ -46,6 +74,7 @@ const Sequence = ({ sequence, seqIndex }: Props) => {
                         active={step}
                         stepNumber={index + 1}
                         isGridStep={index % 4 === 0}
+                        minimised={minimised}
                     />
                 ))}
             </div>

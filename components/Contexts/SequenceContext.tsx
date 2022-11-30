@@ -4,6 +4,7 @@ import { SequenceGenerator } from "../sequenceGenerator";
 interface Sequence {
     title: string;
     sequence: boolean[];
+    offset: number;
 }
 
 interface SequenceContextProps {
@@ -15,6 +16,7 @@ interface SequenceContextProps {
     addRemoveTrig: (sequenceIndex: number, addRemove: string) => void;
     half: (sequenceIndex: number, type: "trigs" | "steps") => void;
     double: (sequenceIndex: number, type: "trigs" | "steps") => void;
+    offset: (sequenceIndex: number, offset: number) => void;
 }
 
 export const SequenceContext = createContext<SequenceContextProps>({
@@ -26,6 +28,7 @@ export const SequenceContext = createContext<SequenceContextProps>({
     addRemoveTrig: () => {},
     half: () => {},
     double: () => {},
+    offset: () => {},
 });
 
 export const useSequenceContext = () => useContext(SequenceContext);
@@ -45,6 +48,7 @@ export const SequenceContextProvider = ({
                 trigs: trigs,
                 steps: steps,
             }) as unknown as boolean[],
+            offset: 0,
         };
 
         setSequences((sequences) => [...sequences, seq]);
@@ -71,9 +75,7 @@ export const SequenceContextProvider = ({
                     : getSeqLengths(sequenceIndex).steps - 1,
         });
 
-        const n: Sequence[] = [...sequences];
-        n[sequenceIndex].sequence = newSequence as unknown as boolean[];
-        setSequences(n);
+        transformSequence(sequences, newSequence);
     };
 
     const addRemoveTrig = (sequenceIndex: number, addRemove: string) => {
@@ -85,9 +87,7 @@ export const SequenceContextProvider = ({
             steps: getSeqLengths(sequenceIndex).steps,
         });
 
-        const n = [...sequences];
-        n[sequenceIndex].sequence = newSequence as unknown as boolean[];
-        setSequences(n);
+        transformSequence(sequences, newSequence);
     };
 
     const half = (sequenceIndex: number, type: "trigs" | "steps") => {
@@ -102,9 +102,7 @@ export const SequenceContextProvider = ({
                     : getSeqLengths(sequenceIndex).steps,
         });
 
-        const n = [...sequences];
-        n[sequenceIndex].sequence = newSequence as unknown as boolean[];
-        setSequences(n);
+        transformSequence(sequences, newSequence);
     };
 
     const double = (sequenceIndex: number, type: "trigs" | "steps") => {
@@ -119,9 +117,41 @@ export const SequenceContextProvider = ({
                     : getSeqLengths(sequenceIndex).steps,
         });
 
-        const n = [...sequences];
-        n[sequenceIndex].sequence = newSequence as unknown as boolean[];
+        transformSequence(sequences, newSequence);
+    };
+
+    const offset = (sequenceIndex: number, offset: number) => {
+        const newSequences = [...sequences];
+        newSequences[sequenceIndex].offset =
+            newSequences[sequenceIndex].offset + offset;
+        console.log(
+            "🚀 ~ file: SequenceContext.tsx ~ line 130 ~ offset ~ newSequences[sequenceIndex].offset",
+            newSequences[sequenceIndex].offset
+        );
+        setSequences(positionTrigs(newSequences, offset));
+    };
+
+    const transformSequence = (oldSeqs: Sequence[], newSeq: number[]) => {
+        const n = [...oldSeqs];
+        n[0].sequence = newSeq as unknown as boolean[];
         setSequences(n);
+    };
+
+    const positionTrigs = (
+        seqs: Sequence[],
+        offsetSent: number | null = null
+    ): Sequence[] => {
+        return seqs.map((seq) => {
+            if (offsetSent) {
+                if (offsetSent === 1) {
+                    seq.sequence.unshift(seq.sequence.pop() as boolean);
+                } else {
+                    seq.sequence.push(seq.sequence.shift() as boolean);
+                }
+            }
+
+            return seq;
+        });
     };
 
     return (
@@ -135,6 +165,7 @@ export const SequenceContextProvider = ({
                 addRemoveTrig,
                 half,
                 double,
+                offset,
             }}
         >
             {children}

@@ -6,10 +6,12 @@ import CloseIcon from "@mui/icons-material/Close";
 interface Props {}
 
 export const AddSequenceForm = ({}: Props) => {
-    const { addSequence, openCloseForm } = useSequenceContext();
-    const [trigs, setTrigs] = useState<number>(3);
-    const [steps, setSteps] = useState<number>(12);
-    const [title, setTitle] = useState<string>("");
+    const { addSequence, openCloseForm, sequences } = useSequenceContext();
+    const [trigs, setTrigs] = useState<number>(4);
+    const [steps, setSteps] = useState<number>(16);
+    const [title, setTitle] = useState<string>(
+        `Sequence ${sequences.length + 1}`
+    );
 
     useEffect(() => {}, []);
 

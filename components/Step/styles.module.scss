@@ -8,6 +8,16 @@ $Active: red;
     border-radius: 6px;
     background-color: $StepBackground;
     box-shadow: 3px 4px 12px -3px rgb(0 0 0 / 75%);
+
+    &.minimised {
+        aspect-ratio: unset;
+        height: 20px;
+        overflow: hidden;
+    }
+
+    &.active {
+        background-color: $Active;
+    }
 }
 
 .gridStep {

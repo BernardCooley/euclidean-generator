@@ -8,7 +8,7 @@
     box-shadow: $BoxShadow;
 
     @media screen and (min-width: $mobile-wide-breakpoint) {
-        width: 40px;
+        width: 100%;
     }
 
     @media screen and (min-width: $x-large-screen-breakpoint) {
@@ -19,7 +19,7 @@
         width: 70px;
     }
 
-    &.minimised {
+    &.isMinimised {
         aspect-ratio: unset;
         height: 20px;
         overflow: hidden;
@@ -49,8 +49,8 @@
     aspect-ratio: 1/1;
     border-radius: 6px;
     color: $TextAndBorder;
-    font-size: 20px;
-    line-height: 21px;
+    font-size: 28px;
+    line-height: 42px;
     height: 100%;
 
     @media screen and (min-width: $x-large-screen-breakpoint) {
@@ -71,11 +71,19 @@
     }
 }
 
-.isButton:hover {
-    color: $Active;
+.isButton {
+    height: 64px;
 
     .stepText {
+        line-height: 42px;
+    }
+
+    &:hover {
         color: $Active;
-        border: 3px solid $Active;
+
+        .stepText {
+            color: $Active;
+            border: 3px solid $Active;
+        }
     }
 }

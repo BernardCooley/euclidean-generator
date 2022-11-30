@@ -29,7 +29,7 @@
     }
 }
 
-.minimised {
+.isMinimised {
     overflow: hidden;
 }
 
@@ -47,7 +47,7 @@
     transition: all 0.3s ease-in-out;
     justify-content: center;
 
-    &.minimised {
+    &.isMinimised {
         font-size: 26px;
         top: 6px;
     }

@@ -5,7 +5,7 @@ interface Props {
     active: boolean;
     stepText: number | string;
     isGridStep?: boolean;
-    minimised?: boolean;
+    isMinimised?: boolean;
     additionalStyles?: {
         [key: string]: string;
     };
@@ -16,20 +16,20 @@ const Step = ({
     active,
     stepText,
     isGridStep,
-    minimised,
+    isMinimised,
     additionalStyles,
     isButton,
 }: Props) => {
     return (
         <div
             className={`${styles.container} ${
-                minimised ? styles.minimised : ""
-            } ${minimised && active ? styles.active : ""} ${
+                isMinimised ? styles.isMinimised : ""
+            } ${isMinimised && active ? styles.active : ""} ${
                 isButton ? styles.isButton : ""
             }`}
             style={additionalStyles}
         >
-            {!minimised && (
+            {!isMinimised && (
                 <div className={styles.stepNumberContainer}>
                     <div
                         className={`${styles.stepText} ${

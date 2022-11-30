@@ -18,6 +18,10 @@ interface SequenceContextProps {
     double: (sequenceIndex: number, type: "trigs" | "steps") => void;
     offset: (sequenceIndex: number, offset: number) => void;
     removeSequence: (sequenceIndex: number) => void;
+    openDialog: (sequenceIndex: number) => void;
+    dialogOpen: boolean;
+    closeDialog: () => void;
+    seqIndex: number | null;
 }
 
 export const SequenceContext = createContext<SequenceContextProps>({
@@ -31,6 +35,10 @@ export const SequenceContext = createContext<SequenceContextProps>({
     double: () => {},
     offset: () => {},
     removeSequence: () => {},
+    dialogOpen: false,
+    closeDialog: () => {},
+    openDialog: () => {},
+    seqIndex: null,
 });
 
 export const useSequenceContext = () => useContext(SequenceContext);
@@ -42,6 +50,18 @@ export const SequenceContextProvider = ({
 }) => {
     const [sequences, setSequences] = useState<Sequence[]>([]);
     const [formOpen, setFormOpen] = useState<boolean>(false);
+    const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+    const [seqIndex, setSeqIndex] = useState<number | null>(null);
+
+    const closeDialog = () => {
+        setDialogOpen(false);
+        setSeqIndex(null);
+    };
+
+    const openDialog = (sequenceIndex: number) => {
+        setDialogOpen(true);
+        setSeqIndex(sequenceIndex);
+    };
 
     const addSequence = (title: string, trigs: number, steps: number) => {
         const seq: Sequence = {
@@ -126,10 +146,7 @@ export const SequenceContextProvider = ({
         const newSequences = [...sequences];
         newSequences[sequenceIndex].offset =
             newSequences[sequenceIndex].offset + offset;
-        console.log(
-            "🚀 ~ file: SequenceContext.tsx ~ line 130 ~ offset ~ newSequences[sequenceIndex].offset",
-            newSequences[sequenceIndex].offset
-        );
+
         setSequences(positionTrigs(newSequences, offset));
     };
 
@@ -160,10 +177,13 @@ export const SequenceContextProvider = ({
         });
     };
 
-    const removeSequence = (sequenceIndex: number) => {
-        const newSequences = [...sequences];
-        newSequences.splice(sequenceIndex, 1);
-        setSequences(newSequences);
+    const removeSequence = (sequenceIndex: number | null) => {
+        if (sequenceIndex !== null) {
+            const newSequences = [...sequences];
+            newSequences.splice(sequenceIndex, 1);
+            setSequences(newSequences);
+            setDialogOpen(false);
+        }
     };
 
     return (
@@ -179,6 +199,10 @@ export const SequenceContextProvider = ({
                 double,
                 offset,
                 removeSequence,
+                dialogOpen,
+                closeDialog,
+                openDialog,
+                seqIndex,
             }}
         >
             {children}

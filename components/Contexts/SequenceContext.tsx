@@ -75,7 +75,7 @@ export const SequenceContextProvider = ({
                     : getSeqLengths(sequenceIndex).steps - 1,
         });
 
-        transformSequence(sequences, newSequence);
+        transformSequence(sequences, newSequence, sequenceIndex);
     };
 
     const addRemoveTrig = (sequenceIndex: number, addRemove: string) => {
@@ -87,7 +87,7 @@ export const SequenceContextProvider = ({
             steps: getSeqLengths(sequenceIndex).steps,
         });
 
-        transformSequence(sequences, newSequence);
+        transformSequence(sequences, newSequence, sequenceIndex);
     };
 
     const half = (sequenceIndex: number, type: "trigs" | "steps") => {
@@ -102,7 +102,7 @@ export const SequenceContextProvider = ({
                     : getSeqLengths(sequenceIndex).steps,
         });
 
-        transformSequence(sequences, newSequence);
+        transformSequence(sequences, newSequence, sequenceIndex);
     };
 
     const double = (sequenceIndex: number, type: "trigs" | "steps") => {
@@ -117,7 +117,7 @@ export const SequenceContextProvider = ({
                     : getSeqLengths(sequenceIndex).steps,
         });
 
-        transformSequence(sequences, newSequence);
+        transformSequence(sequences, newSequence, sequenceIndex);
     };
 
     const offset = (sequenceIndex: number, offset: number) => {
@@ -131,9 +131,13 @@ export const SequenceContextProvider = ({
         setSequences(positionTrigs(newSequences, offset));
     };
 
-    const transformSequence = (oldSeqs: Sequence[], newSeq: number[]) => {
+    const transformSequence = (
+        oldSeqs: Sequence[],
+        newSeq: number[],
+        sequenceIndex: number
+    ) => {
         const n = [...oldSeqs];
-        n[0].sequence = newSeq as unknown as boolean[];
+        n[sequenceIndex].sequence = newSeq as unknown as boolean[];
         setSequences(n);
     };
 

@@ -16,15 +16,26 @@
     top: -9px;
     width: 100%;
     text-align: center;
-    background-color: white;
+    color: white;
 }
 
 .icons {
     position: relative;
     top: 6px;
+    color: white;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
 
     :hover {
         cursor: pointer;
-        background-color: lightgray;
+        background-color: #000000;
+        border-radius: 8px;
     }
+}
+
+.half,
+.double {
+    text-align: center;
+    font-size: 20px;
 }

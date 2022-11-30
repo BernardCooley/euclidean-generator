@@ -34,7 +34,6 @@ $Active: red;
 
 .active {
     color: $Active;
-    font-weight: bold;
 
     &.gridStep {
         border: 3px solid $Active;

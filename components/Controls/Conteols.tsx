@@ -8,6 +8,9 @@ interface Props {
     title: string;
     addOnClick: () => void;
     removeOnClick: () => void;
+    halfOnClick: () => void;
+    doubleOnClick: () => void;
+    children?: React.ReactNode;
 }
 
 const Controls = ({
@@ -15,6 +18,9 @@ const Controls = ({
     title,
     addOnClick,
     removeOnClick,
+    halfOnClick,
+    doubleOnClick,
+    children,
 }: Props) => {
     return (
         <div className={styles.controls}>
@@ -22,8 +28,15 @@ const Controls = ({
                 {title}: {currentNumber}
             </div>
             <div className={styles.icons}>
-                <AddIcon fontSize="large" onClick={addOnClick} />
                 <RemoveIcon fontSize="large" onClick={removeOnClick} />
+                <AddIcon fontSize="large" onClick={addOnClick} />
+                <div className={styles.half} onClick={halfOnClick}>
+                    1/2
+                </div>
+                <div className={styles.double} onClick={doubleOnClick}>
+                    X2
+                </div>
+                {children}
             </div>
         </div>
     );

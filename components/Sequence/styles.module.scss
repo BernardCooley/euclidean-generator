@@ -1,0 +1,43 @@
+.sequencerContainer {
+    border-radius: 12px;
+    padding: 56px 24px;
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    width: 100%;
+    margin-bottom: 24px;
+    align-items: flex-start;
+    position: relative;
+    box-shadow: 3px 4px 12px -3px rgb(0 0 0 / 75%);
+    background-image: linear-gradient(135deg, #28313b 0%, #485461 100%);
+}
+
+.title {
+    margin-top: 0px;
+    position: absolute;
+    left: 50%;
+    top: -7%;
+    translate: -50%;
+    font-size: 34px;
+    width: 30%;
+    text-align: center;
+    color: white;
+}
+
+.details {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sequencer {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+}

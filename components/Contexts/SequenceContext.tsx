@@ -13,6 +13,8 @@ interface SequenceContextProps {
     openCloseForm: (openClose: "open" | "close") => void;
     addRemoveStep: (sequenceIndex: number, addRemove: string) => void;
     addRemoveTrig: (sequenceIndex: number, addRemove: string) => void;
+    half: (sequenceIndex: number, type: "trigs" | "steps") => void;
+    double: (sequenceIndex: number, type: "trigs" | "steps") => void;
 }
 
 export const SequenceContext = createContext<SequenceContextProps>({
@@ -22,6 +24,8 @@ export const SequenceContext = createContext<SequenceContextProps>({
     openCloseForm: () => {},
     addRemoveStep: () => {},
     addRemoveTrig: () => {},
+    half: () => {},
+    double: () => {},
 });
 
 export const useSequenceContext = () => useContext(SequenceContext);
@@ -86,6 +90,40 @@ export const SequenceContextProvider = ({
         setSequences(n);
     };
 
+    const half = (sequenceIndex: number, type: "trigs" | "steps") => {
+        const newSequence = SequenceGenerator({
+            trigs:
+                type === "trigs"
+                    ? Math.floor(getSeqLengths(sequenceIndex).trigs / 2)
+                    : getSeqLengths(sequenceIndex).trigs,
+            steps:
+                type === "steps"
+                    ? Math.floor(getSeqLengths(sequenceIndex).steps / 2)
+                    : getSeqLengths(sequenceIndex).steps,
+        });
+
+        const n = [...sequences];
+        n[sequenceIndex].sequence = newSequence as unknown as boolean[];
+        setSequences(n);
+    };
+
+    const double = (sequenceIndex: number, type: "trigs" | "steps") => {
+        const newSequence = SequenceGenerator({
+            trigs:
+                type === "trigs"
+                    ? getSeqLengths(sequenceIndex).trigs * 2
+                    : getSeqLengths(sequenceIndex).trigs,
+            steps:
+                type === "steps"
+                    ? getSeqLengths(sequenceIndex).steps * 2
+                    : getSeqLengths(sequenceIndex).steps,
+        });
+
+        const n = [...sequences];
+        n[sequenceIndex].sequence = newSequence as unknown as boolean[];
+        setSequences(n);
+    };
+
     return (
         <SequenceContext.Provider
             value={{
@@ -95,6 +133,8 @@ export const SequenceContextProvider = ({
                 openCloseForm,
                 addRemoveStep,
                 addRemoveTrig,
+                half,
+                double,
             }}
         >
             {children}

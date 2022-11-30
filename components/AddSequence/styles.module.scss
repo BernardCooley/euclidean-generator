@@ -2,19 +2,21 @@
     width: 50vw;
     height: 50vh;
     position: absolute;
-    background-color: #fff;
+    background-image: linear-gradient(135deg, #28313b 0%, #485461 100%);
     translate: 50% 50%;
     border: 1px solid black;
     border-radius: 12px;
     padding: 24px;
     z-index: 2;
+    min-height: 250px;
 }
 
 .form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    height: 100%;
 }
 
 .fields {

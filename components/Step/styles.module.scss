@@ -49,13 +49,17 @@
     aspect-ratio: 1/1;
     border-radius: 6px;
     color: $TextAndBorder;
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 20px;
+    line-height: 21px;
     height: 100%;
 
     @media screen and (min-width: $x-large-screen-breakpoint) {
         font-size: 36px;
-        line-height: 56px;
+        line-height: 40px;
+    }
+
+    @media screen and (min-width: $xx-large-screen-breakpoint) {
+        line-height: 47px;
     }
 }
 

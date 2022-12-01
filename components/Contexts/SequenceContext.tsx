@@ -147,7 +147,7 @@ export const SequenceContextProvider = ({
         newSequences[sequenceIndex].offset =
             newSequences[sequenceIndex].offset + offset;
 
-        setSequences(positionTrigs(newSequences, offset));
+        setSequences(positionTrigs(newSequences, offset, sequenceIndex));
     };
 
     const transformSequence = (
@@ -162,10 +162,11 @@ export const SequenceContextProvider = ({
 
     const positionTrigs = (
         seqs: Sequence[],
-        offsetSent: number | null = null
+        offsetSent: number | null = null,
+        sequenceIndex: number
     ): Sequence[] => {
-        return seqs.map((seq) => {
-            if (offsetSent) {
+        return seqs.map((seq, index) => {
+            if (offsetSent && index === sequenceIndex) {
                 if (offsetSent === 1) {
                     seq.sequence.unshift(seq.sequence.pop() as boolean);
                 } else {
